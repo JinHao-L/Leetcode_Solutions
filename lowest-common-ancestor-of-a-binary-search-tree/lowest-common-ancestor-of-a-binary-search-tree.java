@@ -10,26 +10,15 @@
 
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if (root == null) {
-            return null;
-        }
-        
-        // found lowest ancestor for either p or q: (itself)
-        // anything below is invalid, bcos node.val are unique
-        if (root == p || root == q) {
-            return root;
-        }
-        
-        TreeNode left = lowestCommonAncestor(root.left, p, q);
-        TreeNode right = lowestCommonAncestor(root.right, p, q);
-        
-        if (left != null && right != null) {
-            // lowest common ancestor
-            return root;
-        } else if (left != null) {
-            return left;
+        if (root.val < p.val && root.val < q.val) {
+            // ancestor lies to the right
+            return lowestCommonAncestor(root.right, p, q);
+        } else if (root.val > p.val && root.val > q.val) {
+            // ancestor lies to the left
+            return lowestCommonAncestor(root.left, p, q);
         } else {
-            return right;
+            // is lowest common ancestor
+            return root;
         }
     }
 }
