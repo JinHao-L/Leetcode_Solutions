@@ -21,8 +21,6 @@ class Solution {
                 dp[i][j] = Math.max(dp[i][j - 1], possibleProfit + prices[j]);
                 possibleProfit = Math.max(possibleProfit, dp[i - 1][j - 1] - prices[j]);
             }
-            
-            dp[i][days - 1] = Math.max(dp[i][days - 1], dp[i - 1][days - 2]);
         }
         
         return dp[k][days - 1];
