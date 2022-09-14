@@ -15,29 +15,24 @@
  */
 class Solution {
     public int pseudoPalindromicPaths (TreeNode root) {
-        boolean[] odd = new boolean[9];
-        return traverse(root, odd);
+        return traverse(root, 0);
     }
     
-    public int traverse(TreeNode root, boolean[] odd) {
-        if (root == null) {
+    public int traverse(TreeNode node, int path) {
+        if (node == null) {
             return 0;
         }
 
         int result = 0;
-        odd[root.val - 1] = !odd[root.val - 1];
+        path ^= (1 << node.val);
 
-        if (root.left == null && root.right == null) {
-            int numOdds = 0;
-            for(int i = 0; i < odd.length; i++) {
-                if (odd[i]) numOdds++;
-            }
-            result = numOdds <= 1 ? 1 : 0;
+        if (node.left == null && node.right == null) {
+            result = (path & (path - 1)) == 0 ? 1 : 0;
         } else {
-            result = traverse(root.left, odd) + traverse(root.right, odd);
+            result = traverse(node.left, path) + traverse(node.right, path);
         }
 
-        odd[root.val - 1] = !odd[root.val - 1];
+        path ^= (1 << node.val);
         
         return result;
     }
