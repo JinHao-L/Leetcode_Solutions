@@ -8,12 +8,10 @@ class Solution {
         int[] ans = new int[queries.length];
         for(int i = 0; i < queries.length; i++) {
             int idx = queries[i][1];
-            int og = nums[idx];
-            nums[idx] += queries[i][0];
-            if (og % 2 == 0) {
-                sum -= og;
+            if (nums[idx] % 2 == 0) {
+                sum -= nums[idx];
             }
-            
+            nums[idx] += queries[i][0];
             if (nums[idx] % 2 == 0) {
                 sum += nums[idx];
             }
