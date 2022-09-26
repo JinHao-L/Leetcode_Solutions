@@ -3,35 +3,22 @@ class Solution {
         int[] letters = new int[27];
         
         for(String s : equations) {
-            int left = s.charAt(0) - 'a' + 1;
-            int right = s.charAt(3) - 'a' + 1;
-
-            int leftRoot = parent(letters, left);
-            int rightRoot = parent(letters, right);
+            int leftRoot = parent(letters, s.charAt(0) - 'a' + 1);
+            int rightRoot = parent(letters, s.charAt(3) - 'a' + 1);
 
             if (s.charAt(1) == '=') {
-                // ==
-                if (rightRoot != leftRoot) {
-                    letters[rightRoot] = leftRoot;
-                }
+                letters[rightRoot] = leftRoot;
             }
         }
-        
         
         for(String s : equations) {
-            int left = s.charAt(0) - 'a' + 1;
-            int right = s.charAt(3) - 'a' + 1;
-            int leftRoot = parent(letters, left);
-            int rightRoot = parent(letters, right);
+            int leftRoot = parent(letters, s.charAt(0) - 'a' + 1);
+            int rightRoot = parent(letters, s.charAt(3) - 'a' + 1);
 
-            if (s.charAt(1) == '!') {
-                // ==
-                if (leftRoot == rightRoot) {
-                    return false;
-                }
+            if (s.charAt(1) == '!' && leftRoot == rightRoot) {
+                return false;
             }
         }
-        
         
         return true;
     }
