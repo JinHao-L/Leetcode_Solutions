@@ -28,6 +28,7 @@ class Solution {
             return query;
         }
         int root = parent(letters,  letters[query]);
+        letters[query] = root;
         return root;
     }
 }
