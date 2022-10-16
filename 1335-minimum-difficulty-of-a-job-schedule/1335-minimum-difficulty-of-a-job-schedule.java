@@ -13,11 +13,7 @@ class Solution {
         for(int i = 1; i <= d; i++) {
             Arrays.fill(dp[i], -2);
         }
-        int ans = dp(L - 1, d);
-        
-        dp[0][0] = 0;
-        
-        return ans;
+        return dp(L - 1, d);
     }
     
     public int dp(int pos, int days) {
@@ -26,21 +22,12 @@ class Solution {
         int ans = dp[days][pos];
         if (ans != -2) return ans;
 
-        ans = -1;
+        ans = 100000;
         int max = jobDifficulty[pos];
         for(int i = pos; i >= 0; i--) {
             max = Math.max(max, jobDifficulty[i]);
             int prevDay = dp(i - 1, days - 1);
-            if (prevDay != -1) {
-                if (ans == -1) {
-                    ans = prevDay + max;
-                } else {
-                    ans = Math.min(ans, prevDay + max);
-                }
-            }
-            if (days == 3) {
-                System.out.println(i + ": " + prevDay + ", " + max);
-            }
+            ans = prevDay == -1 ? ans : Math.min(ans, prevDay + max);
         }
         dp[days][pos] = ans;
         return ans;
