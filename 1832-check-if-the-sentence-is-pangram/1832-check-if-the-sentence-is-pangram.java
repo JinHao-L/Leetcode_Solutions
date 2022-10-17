@@ -1,12 +1,11 @@
 class Solution {
     public boolean checkIfPangram(String sentence) {
-        BitSet state = new BitSet(26);
-        state.set(0, 26);
+        Set<Character> seen = new HashSet<>();
         
         for (char i : sentence.toCharArray()) {
-            state.set(i - 'a', false);
-            if (state.cardinality() == 0) return true;
+            seen.add(i);
+            if (seen.size() == 26) return true;
         }
-        return state.cardinality() == 0;
+        return seen.size() == 26;
     }
 }
