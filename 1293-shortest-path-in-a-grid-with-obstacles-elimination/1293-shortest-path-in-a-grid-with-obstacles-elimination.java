@@ -16,10 +16,6 @@ class Solution {
                 int i = curr[0];
                 int j = curr[1];
                 int ex = curr[2];
-
-                if (visited[i][j][ex]) continue;
-                
-                visited[i][j][ex] = true;
                 
                 if (i == m - 1 && j == n - 1) {
                     res = Math.min(steps, res);
@@ -27,6 +23,10 @@ class Solution {
                     continue;
                 }
 
+                if (canEnd || visited[i][j][ex]) continue;
+                
+                visited[i][j][ex] = true;
+                
                 for(int[] dir : new int[][]{{i - 1, j}, {i, j - 1}, {i + 1, j}, {i, j + 1}}) {
                     int ii = dir[0];
                     int jj = dir[1];
