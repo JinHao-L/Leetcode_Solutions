@@ -6,10 +6,11 @@ class Solution {
         boolean[][][] visited = new boolean[m][n][k + 1];
         Queue<int[]> q = new LinkedList();
         q.offer(new int[]{0, 0, k});
-
-        while (q.size() > 0) {
-            int run = q.size();
-            int res = Integer.MAX_VALUE;
+        
+        int run;
+        int res = Integer.MAX_VALUE;
+        while ((run = q.size()) > 0) {
+            boolean canEnd = false;
             for (int c = 0; c < run; c++) {
                 int[] curr = q.poll();
                 int i = curr[0];
@@ -22,6 +23,7 @@ class Solution {
                 
                 if (i == m - 1 && j == n - 1) {
                     res = Math.min(steps, res);
+                    canEnd = true;
                     continue;
                 }
 
@@ -36,7 +38,7 @@ class Solution {
                     }
                 }
             }
-            if (res != Integer.MAX_VALUE) return res;
+            if (canEnd) return res;
             steps++;
         }
         
