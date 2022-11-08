@@ -1,16 +1,19 @@
 class Solution {
     public String makeGood(String s) {
-        int n = s.length();
+        Stack<Character> stack = new Stack<>();
         
-        for (int i = 0; i < n - 1; i++) {
-            char curr = s.charAt(i);
-            char next = s.charAt(i + 1);
-            if ((curr >= 'a' && curr - 'a' == next - 'A') ||
-               (curr < 'a' && curr - 'A' == next - 'a')) {
-                return makeGood(s.substring(0, i) + s.substring(i + 2));
+        for(char c : s.toCharArray()) {
+            if (!stack.isEmpty() && Math.abs(stack.peek() - c) == 32) {
+                stack.pop();
+            } else {
+                stack.push(c);
             }
         }
         
-        return s;
+        StringBuilder sb = new StringBuilder();
+        for(char c : stack) {
+            sb.append(c);
+        }
+        return sb.toString();
     }
 }
