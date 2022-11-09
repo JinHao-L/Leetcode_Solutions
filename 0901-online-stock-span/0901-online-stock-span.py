@@ -2,16 +2,13 @@ class StockSpanner:
     
     def __init__(self):
         self.stack = []
-        self.day = 0
 
     def next(self, price: int) -> int:
+        ans = 1
         while (len(self.stack) > 0 and self.stack[-1][1] <= price) :
-            self.stack.pop()
-        
-        prevDay = 0 if len(self.stack) == 0 else self.stack[-1][0]
-        self.day += 1
-        self.stack.append((self.day, price))
-        return self.day - prevDay
+            ans += self.stack.pop()[0]
+        self.stack.append((ans, price))
+        return ans
 
 
 # Your StockSpanner object will be instantiated and called as such:
